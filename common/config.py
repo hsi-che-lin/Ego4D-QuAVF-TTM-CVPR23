@@ -1,0 +1,32 @@
+import argparse
+
+argparser = argparse.ArgumentParser()
+
+argparser.add_argument("--modality", type = str, default = "audio", help = "Modality (audio or visual) to train / inference")
+argparser.add_argument("--eval", action = "store_true", help = "Running mode")
+argparser.add_argument("--startFromCkpt", action = "store_true", help = "Start from a checkpoint or random initialized model")
+
+argparser.add_argument("--lr", type = float, default = 1e-5, help = "Learning rate")
+argparser.add_argument("--numEpoch", type = int, default = 1, help = "Maximum number of epochs")
+argparser.add_argument("--gradientClip", type = float, default = 1, help = "Gradient clipping")
+argparser.add_argument("--earlyStop", type = int, default = 100, help = "Maximum patience for early stopping")
+argparser.add_argument("--minLength", type = float, default = 0.1, help = "Miniumum length for training data")
+argparser.add_argument("--updateEveryBatch", type = int, default = 1, help = "Number of backward passes per update")
+argparser.add_argument("--batchSizeForward", type = int, default = 32, help = "Batch size per forward pass")
+argparser.add_argument("--saveEveryEpochs", type = int, default = 1, help = "Save a checkpoint every k epochs")
+argparser.add_argument("--numWorkers", type = int, default = 4, help = "Number of workers used in dataloader")
+argparser.add_argument("--featLength", type = int, default = 15, help = "Length of visual feature")
+argparser.add_argument("--frameStride", type = int, default = 15, help = "Stride between input visual frames")
+argparser.add_argument("--dataStride", type = int, default = 8, help = "Stride between each training sample")
+argparser.add_argument("--useScore", action = "store_true", help = "Use quality score as input in visual branch")
+argparser.add_argument("--scoreThreshold", type = float, default = 0.3, help = "Threshold for quality score filtering")
+
+argparser.add_argument("--tensorboardPath", type = str, default = "./tensorboard", help = "Directory for tensorboard")
+argparser.add_argument("--ckptLoadPath", type = str, default = "./checkpoints/best.ckpt", help = "Path to the checkpoint")
+argparser.add_argument("--ckptSavePath", type = str, default = "./checkpoints", help = "Directory to store checkpoints")
+argparser.add_argument("--outputPath", type = str, default = "./pred.json", help = "Path to save the prediction")
+argparser.add_argument("--scorePath", type = str, default = "./data/score.json", help = "Path to quality scores of training data")
+argparser.add_argument("--testScorePath", type = str, default = "./data/testScore.json", help = "Path to quality scores of training data")
+argparser.add_argument("--audioPath", type = str, default = "./data/audio", help = "Directory for audio files")
+argparser.add_argument("--ttmPath", type = str, default = "./data/ttm", help = "Directory for ttm label files")
+argparser.add_argument("--testDataPath", type = str, default = "./data/testData", help = "Directory for test data")
