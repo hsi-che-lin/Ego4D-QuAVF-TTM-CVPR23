@@ -9,7 +9,7 @@ class TTMDataset(Dataset):
     def __init__(self, mode, cfg):
         assert ((cfg.featLength % 2) == 1), "expect odd feature length"
         
-        self.imgPath = cfg.imgPath
+        self.imgPath = cfg.faceCropPath
         self.frameStride = cfg.frameStride
         self.imgTran = getattr(cfg, f"{mode}ImgTransforms")
         self.useScore = cfg.useScore

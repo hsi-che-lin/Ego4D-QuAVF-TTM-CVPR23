@@ -1,3 +1,4 @@
+import argparse
 import os
 import json
 import face_alignment
@@ -24,21 +25,23 @@ def processBbox(origBbox, newBbox, W, H):
 
 
 if (__name__ == "__main__"):
-    fa = face_alignment.FaceAlignment(face_alignment.LandmarksType._2D)
-    faceCropPath = "../../data/faceCrops"
-    metaDataPath = "../../data/faceCrops/metaData.json"
-    splitPath = "../../data/faceCrops/split.txt"
-    confidenceScore = {}
+    fa = face_alignment.FaceAlignment(face_alignment.LandmarksType.TWO_D)
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument("--faceCropPath", type = str, default = "./faceCrops", help = "Directory to store face crops images")
+    argparser.add_argument("--resultPath", type = str, default = "./faceCrops/confidenceScore.json", help = "Result file to store quality scores")
+    args = argparser.parse_args()
 
-    with open(splitPath, "r") as f:
-        uids = [line.strip() for line in f.readlines()]
+    metaDataPath = os.path.join(args.faceCropPath, "metaData.json")
+    confidenceScore = {}
 
     with open(metaDataPath, "r") as f:
         metaData = json.load(f)
+    
+    uids = list(metaData.keys())
 
-    for uid in tqdm(uids):
+    for uid in tqdm(uids, leave = False):
         confidenceScore[uid] = {}
-        uidPath = os.path.join(faceCropPath, uid)
+        uidPath = os.path.join(args.faceCropPath, uid)
         pids = os.listdir(uidPath)
 
         for pid in pids:
@@ -62,13 +65,13 @@ if (__name__ == "__main__"):
                 orig = resize[y1:y2, x1:x2, ::-1]
                 
                 bbox = [np.array([0, 0, orig.shape[1], orig.shape[0]])]
-                args = {
+                faArgs = {
                     "image_or_path": orig,
                     "detected_faces": bbox,
                     "return_landmark_score": True
                 }
-                landmarks, score, _ = fa.get_landmarks_from_image(**args)
+                landmarks, score, _ = fa.get_landmarks_from_image(**faArgs)
                 confidenceScore[uid][pid][fid] = score[0].mean().item()
 
-    with open("./confidenceScore.json", "w") as f:
+    with open(args.resultPath, "w") as f:
         json.dump(confidenceScore, f)
