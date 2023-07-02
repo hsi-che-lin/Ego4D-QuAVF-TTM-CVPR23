@@ -261,7 +261,7 @@ def getLoader(cfg, mode):
             pin_memory  = True
         )
     else:
-        dataset = TTMTestDataset(dataPaths = cfg.testDataPath)
+        dataset = TTMTestDataset(dataPath = cfg.testDataPath)
 
         loader = DataLoader(
             dataset     = dataset,

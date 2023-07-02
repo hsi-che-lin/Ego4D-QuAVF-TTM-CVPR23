@@ -5,7 +5,7 @@ import os
 
 def getData(cfg):
     dataPath = cfg.testDataPath
-    scorePath = cfg.qualityScore
+    scorePath = cfg.testScorePath
     videoSpan = (cfg.featLength - 1) * cfg.frameStride + 1
     frameStride = cfg.frameStride
     

@@ -7,8 +7,8 @@ from torch import nn
 from torch.utils.tensorboard import SummaryWriter
 from torch.nn.functional import softmax
 from tqdm import tqdm
-from utils import saveCkpt, MetricsAccumulator, lossWeight
-from metrics import run_evaluation
+from .utils import saveCkpt, MetricsAccumulator, lossWeight
+from .metrics import run_evaluation
 
 
 def trainStep(model, device, trainLoader, criterion, optim, updateRate,
@@ -128,12 +128,20 @@ def train(cfg, model, trainLoader, validLoader, device):
     bestmAP      = 0
     param        = filter(lambda p: p.requires_grad, model.parameters())
     optim        = torch.optim.Adam(param, lr = cfg.lr)
+
+    if (not os.path.exists(savePath)):
+        os.makedirs(savePath)
     
     if (cfg.startFromCkpt):
+        ckpt = torch.load(cfg.ckptLoadPath)
+        trainIter = ckpt["trainIter"]
+
         try:
-            optim.load_state_dict(torch.load(cfg.ckptLoadPath)["optim"])
+            optim.load_state_dict(ckpt["optim"])
         except:
             pass
+    else:
+        trainIter = 1
     
     if (isinstance(cfg.saveEveryEpochs, int)):
         savePeriod = cfg.saveEveryEpochs

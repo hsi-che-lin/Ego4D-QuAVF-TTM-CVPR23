@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import timm
-from ..common.utils import countParam, freezeWeights
+from common.utils import countParam, freezeWeights
 
 
 class TemporalModule(nn.Module):
@@ -111,7 +111,7 @@ def getModel(cfg, device, verbose = True):
         featLength     = cfg.featLength,
         useScore       = cfg.useScore,
         scoreBin       = cfg.scoreBin,
-        freezeBackbone = cfg.freezeBackbone,
+        freezeBackbone = cfg.vFreezeBackbone,
         dropout        = cfg.vDropout
     ).to(device)
 

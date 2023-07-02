@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import whisper
-from ..common.utils import countParam, freezeWeights
+from common.utils import countParam, freezeWeights
 
 
 WHISPER_DIM = {

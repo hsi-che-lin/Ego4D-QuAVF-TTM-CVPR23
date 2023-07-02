@@ -9,6 +9,7 @@ def main(cfg):
         from model.audioModel import getModel
         from dataset.audioDataset import getLoader
 
+        cfg.ckptLoadPath = cfg.aCkptLoadPath
         cfg.audioTransform = AudioAugmentationHelper([
             (0.9, RandomCrop(3))
         ])
@@ -16,16 +17,23 @@ def main(cfg):
         from model.visualModel import getModel
         from dataset.visualDataset import getLoader
 
+        cfg.ckptLoadPath = cfg.vCkptLoadPath
         if (not cfg.eval):
             cfg.trainImgTransforms = Transforms.Compose([
-                Transforms.ToTensor()
+                Transforms.ToTensor(),
+                Transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
+                Transforms.RandomResizedCrop((224, 224), (0.36, 0.64))
             ])
             cfg.validImgTransforms = Transforms.Compose([
-                Transforms.ToTensor()
+                Transforms.ToTensor(),
+                Transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
+                Transforms.CenterCrop((112, 122)),
+                Transforms.Resize((224, 224))
             ])
         else:
             cfg.testImgTransforms = Transforms.Compose([
-                Transforms.ToTensor()
+                Transforms.ToTensor(),
+                Transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
             ])
     else:
         print('--modality should be either "audio" or "visual"')
@@ -41,6 +49,7 @@ def main(cfg):
     else:
         testLoader = getLoader(cfg, "test")
         freezeWeights(model)
+        model.eval()
         inference(cfg, model, testLoader, device)
 
 if (__name__ == "__main__"):

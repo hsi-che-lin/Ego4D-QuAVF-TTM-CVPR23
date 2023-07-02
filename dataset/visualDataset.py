@@ -160,15 +160,14 @@ class TTMDataset(Dataset):
 
 
 class TTMTestDataset(Dataset):
-    def __init__(self, cfg, featLength, frameStride, useScore,
-                 imgTransforms):
-        assert ((featLength % 2) == 1), "expect odd feature length"
+    def __init__(self, cfg):
+        assert ((cfg.featLength % 2) == 1), "expect odd feature length"
         
         self.dataPath = cfg.testDataPath
-        self.frameStride = frameStride
-        self.imgTran = imgTransforms
-        self.useScore = useScore
-        videoSpan = (featLength - 1) * frameStride + 1
+        self.frameStride = cfg.frameStride
+        self.imgTran = cfg.testImgTransforms
+        self.useScore = cfg.useScore
+        videoSpan = (cfg.featLength - 1) * cfg.frameStride + 1
         self.dataList = self._getData(cfg.testScorePath, videoSpan)
 
 
@@ -285,14 +284,8 @@ def getLoader(cfg, mode):
             pin_memory  = True
         )
     else:
-        dataset = TTMTestDataset(
-            dataPaths      = cfg.dataPaths,
-            featLength     = cfg.featLength,
-            frameStride    = cfg.frameStride,
-            useScore       = cfg.useScore,
-            imgTransforms  = cfg.testImgTransforms
-        )
-
+        dataset = TTMTestDataset(cfg)
+        
         loader = DataLoader(
             dataset     = dataset,
             batch_size  = cfg.batchSizeForward,
