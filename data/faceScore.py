@@ -28,7 +28,7 @@ if (__name__ == "__main__"):
     fa = face_alignment.FaceAlignment(face_alignment.LandmarksType.TWO_D)
     argparser = argparse.ArgumentParser()
     argparser.add_argument("--faceCropPath", type = str, default = "./faceCrops", help = "Directory to store face crops images")
-    argparser.add_argument("--resultPath", type = str, default = "./faceCrops/confidenceScore.json", help = "Result file to store quality scores")
+    argparser.add_argument("--resultPath", type = str, default = "./faceCrops/qualityScore.json", help = "Result file to store quality scores")
     args = argparser.parse_args()
 
     metaDataPath = os.path.join(args.faceCropPath, "metaData.json")

@@ -90,12 +90,12 @@ class AudioBaseline(nn.Module):
 
 def getModel(cfg, device, verbose = True):
     model = AudioBaseline(
-        backboneType   = cfg.backboneType,
-        dim            = cfg.dim,
-        numHeads       = cfg.numHeads,
-        numLayers      = cfg.numLayers,
-        freezeBackbone = cfg.freezeBackbone,
-        dropout        = cfg.dropout
+        backboneType   = cfg.aBackboneType,
+        dim            = cfg.aDim,
+        numHeads       = cfg.aNumHeads,
+        numLayers      = cfg.aNumLayers,
+        freezeBackbone = cfg.aFreezeBackbone,
+        dropout        = cfg.aDropout
     ).to(device)
 
     if (cfg.startFromCkpt):

@@ -316,9 +316,7 @@ def visualInference(model, loader, device, outputPath):
 
 
 def inference(cfg, model, loader, device):
-    outputPath = cfg.outputPath
-    
     if (cfg.modality == "audio"):
-        audioInference(model, loader, device, outputPath)
+        audioInference(model, loader, device, cfg.aPred)
     elif (cfg.modality == "visual"):
-        visualInference(model, loader, device, outputPath)
+        visualInference(model, loader, device, cfg.vPred)

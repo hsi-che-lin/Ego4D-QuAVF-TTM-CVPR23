@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument("--dataPath", type = str, default = "./social_test/final_test_data", help = "Directory to store the test data")
-argparser.add_argument("--resultPath", type = str, default = "./social_test/confidenceScoreTest.json", help = "Result file to store quality scores")
+argparser.add_argument("--resultPath", type = str, default = "./social_test/qualityScoreTest.json", help = "Result file to store quality scores")
 args = argparser.parse_args()
 
 fa = face_alignment.FaceAlignment(face_alignment.LandmarksType.TWO_D)

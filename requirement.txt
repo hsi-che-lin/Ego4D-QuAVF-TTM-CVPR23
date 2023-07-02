@@ -1,0 +1,12 @@
+numpy==1.23.5
+opencv-python==4.4.0.46
+pandas==2.0.3
+scipy==1.8.1
+tensorboard==1.15.0
+timm==0.6.13
+tqdm==4.64.1
+
+--extra-index-url https://download.pytorch.org/whl/cu116
+torch==1.13.1+cu116
+torchvision==0.14.1+cu116
+torchaudio==0.13.1

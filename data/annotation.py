@@ -175,3 +175,29 @@ if (__name__ == "__main__"):
     get_json(arg.mergePath, trackTmp)
     mergeTrack(trackTmp, arg.trackingPath)
     os.system(f"rm -r {trackTmp}")
+
+
+""" Results of getTTMResult """
+# result_path
+# - {clip_uid}.json
+#   - ttm_list[0] = {"uid", "person", "target", "start_frame", "end_frame"}
+#   - ttm_list[1] = {"uid", "person", "target", "start_frame", "end_frame"}
+#   - ttm_list[2] = {"uid", "person", "target", "start_frame", "end_frame"}
+#   - ...
+# - {clip_uid}.json
+# - ...
+
+""" Results of mergeTrack """
+# resultPath
+#  - {clipID}.json
+#       - [{person1}]
+#           - [{frame1}] = (x1, y1, x2, y2)
+#           - [{frame2}] = (x1, y1, x2, y2)
+#           - [{frame3}] = (x1, y1, x2, y2)
+#           - ...
+#
+#       - [{person2}]
+#       - ...
+# 
+#  - {clipID}.json
+# ...

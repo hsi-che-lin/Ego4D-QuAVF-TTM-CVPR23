@@ -104,15 +104,15 @@ class VisionBaseline(nn.Module):
 
 def getModel(cfg, device, verbose = True):
     model = VisionBaseline(
-        modelType      = cfg.modelType,
-        dim            = cfg.dim,
-        numHeads       = cfg.numHeads,
-        numLayers      = cfg.numLayers,
+        modelType      = cfg.vBackboneType,
+        dim            = cfg.vDim,
+        numHeads       = cfg.vNumHeads,
+        numLayers      = cfg.vNumLayers,
         featLength     = cfg.featLength,
         useScore       = cfg.useScore,
         scoreBin       = cfg.scoreBin,
         freezeBackbone = cfg.freezeBackbone,
-        dropout        = cfg.dropout
+        dropout        = cfg.vDropout
     ).to(device)
 
     if (cfg.startFromCkpt):
