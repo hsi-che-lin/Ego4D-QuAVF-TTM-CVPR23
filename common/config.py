@@ -47,7 +47,7 @@ argparser.add_argument("--aCkptLoadPath", type = str, default = "./checkpoints/b
 argparser.add_argument("--vCkptLoadPath", type = str, default = "./checkpoints/best.ckpt", help = "Path to the checkpoint for visual branch")
 argparser.add_argument("--ckptSavePath", type = str, default = "./checkpoints", help = "Directory to store checkpoints")
 argparser.add_argument("--scorePath", type = str, default = "./data/qualityScore.json", help = "Path to quality scores of training data")
-argparser.add_argument("--audioPath", type = str, default = "./data/audio", help = "Directory for audio files")
+argparser.add_argument("--audioPath", type = str, default = "./data/wave", help = "Directory for audio files")
 argparser.add_argument("--faceCropPath", type = str, default = "./data/faceCrops", help = "Directory to store face crops images")
 argparser.add_argument("--ttmPath", type = str, default = "./data/ttm", help = "Directory for ttm label files")
 argparser.add_argument("--trainSplitPath", type = str, default = "./data/split/train.txt", help = "Path to the text file storing IDs of training data")
